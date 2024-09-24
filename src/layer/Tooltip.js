@@ -207,8 +207,11 @@ export const Tooltip = DivOverlay.extend({
 	},
 
 	_animateZoom(e) {
-		const pos = this._map._latLngToNewLayerPoint(this._latlng, e.zoom, e.center);
-		this._setPosition(pos);
+		if (this._map) {
+			const pos = this._map._latLngToNewLayerPoint(this._latlng, e.zoom, e.center),
+				anchor = this._getAnchor();
+			DomUtil.setPosition(this._container, pos.add(anchor));
+		}
 	},
 
 	_getAnchor() {
